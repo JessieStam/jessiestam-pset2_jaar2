@@ -2,4 +2,8 @@
     <string name="app_name">jessiestam-pset2_jaar2</string>
     <string name="main_instructions">Welcome to MadLibs! When asked, fill in the words to complete the story. And all that without seeing the story before you\'re done! Ready? Click the button below to get started!</string>
     <string name="start_button">GET STARTED</string>
+    <string name="second_instructions">Fill in the words to complete the story!</string>
+    <string name="words_left">word(s) left</string>
+    <string name="add_word">Add</string>
+    <string name="word_to_enter">Please enter a/an</string>
 </resources>
