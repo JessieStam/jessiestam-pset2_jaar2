@@ -1,6 +1,7 @@
 package jstam.jessiestam_pset2_jaar2;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -82,7 +83,17 @@ public class SecondActivity extends MainActivity {
 
         TextView wordKind = (TextView) findViewById(R.id.word_kind);
         wordKind.append(" " + nextPlaceholder);
+    }
+
+    public void addWord(View view) {
+
+        // change wordcount
+        // change inputword
+        // save word from inputtext to string (en naar list voor einde activity)
+        // input words (functie in story)
+        // if (wordcount = 0, naar third activity)
 
     }
 
+    // onsavedinstacesate
 }
