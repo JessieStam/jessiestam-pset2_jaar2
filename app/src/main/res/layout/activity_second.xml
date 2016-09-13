@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/words_left"
-                android:id="@+id/words_amount_left"
+                android:id="@+id/amount_left"
                 android:layout_gravity="center_horizontal"
                 android:textSize="25sp"
                 android:padding="10dp"/>
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/word_to_enter"
-                android:id="@+id/textView"
+                android:id="@+id/word_kind"
                 android:layout_gravity="center_horizontal"
                 android:textSize="17sp"/>
 

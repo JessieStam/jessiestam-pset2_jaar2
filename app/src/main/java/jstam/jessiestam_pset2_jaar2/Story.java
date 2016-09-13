@@ -17,7 +17,7 @@
  */
 
 // !YOU MAY WANT TO CHANGE THE PACKAGE BELOW SO THAT IT MATCHES YOUR PROJECT'S PACKAGE!
-package com.example.stepp.madlibs;
+package jstam.jessiestam_pset2_jaar2;
 
 import java.io.*;
 import java.util.*;
@@ -68,9 +68,7 @@ public class Story implements Serializable {
     }
 
     /** returns total number of placeholders in the story */
-    public int getPlaceholderCount() {
-        return placeholders.size();
-    }
+    public int getPlaceholderCount() { return placeholders.size(); }
 
     /** returns how many placeholders still need to be filled in */
     public int getPlaceholderRemainingCount() {
