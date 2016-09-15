@@ -1,5 +1,6 @@
 package jstam.jessiestam_pset2_jaar2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -29,6 +30,13 @@ public class ThirdActivity extends SecondActivity {
     public void makeNewStory(View newStoryView) {
 
         story.clear();
+
+        // open third activity to display story
+        Intent newStory = new Intent(this, SecondActivity.class);
+
+        // start new activity with the story
+        startActivity(newStory);
+
         finish();
 
     }

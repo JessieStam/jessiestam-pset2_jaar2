@@ -30,6 +30,7 @@ public class SecondActivity extends MainActivity {
     String wordInstruction;
     String new_words_left_text;
     String new_word_kind_text;
+    Integer totalPlaceholdersLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +84,15 @@ public class SecondActivity extends MainActivity {
         // REMEMBER storyNum zodat je niet meteen hetzelfde verhaaltje krijgt
 
         // get total amount of placeholders and print to screen
-        Integer totalPlaceholders = story.getPlaceholderCount();
+        //Integer totalPlaceholders = story.getPlaceholderCount();
+        totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
 
         wordsLeft = (TextView) findViewById(R.id.amount_left);
         //wordsLeft.append(totalPlaceholders.toString() + " ");
 
         //textview.setText(" append string" + textView.getText());
 
-        // words_left = wordsLeft.getText().toString();
+        words_left = totalPlaceholdersLeft.toString();
         wordsLeftInstruction = " word(s) left";
         wordsLeft.append(words_left + wordsLeftInstruction);
 
@@ -99,7 +101,7 @@ public class SecondActivity extends MainActivity {
 
         wordKind = (TextView) findViewById(R.id.word_kind);
         wordInstruction = "Please enter a/an ";
-        wordKind.append(wordInstruction + nextPlaceholder);
+        wordKind.append(wordInstruction + nextPlaceholder.toLowerCase());
 
         filled_in_list = new ArrayList<>();
     }
@@ -108,10 +110,12 @@ public class SecondActivity extends MainActivity {
 
         // change wordcount
         // get total amount of placeholders and print to screen
-        Integer totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
+        Integer totalPlaceholdersLeft = story.getPlaceholderRemainingCount() - 1;
 
         //wordsLeft = (TextView) findViewById(R.id.amount_left); (volgens mij is dit extra)
 
+
+        words_left = totalPlaceholdersLeft.toString();
         new_words_left_text = words_left + wordsLeftInstruction;
         wordsLeft.setText(new_words_left_text);
 
@@ -120,12 +124,12 @@ public class SecondActivity extends MainActivity {
         String nextPlaceholder = story.getNextPlaceholder();
 
         // wordKind = (TextView) findViewById(R.id.word_kind); (ook extra)
-        new_word_kind_text = wordInstruction + nextPlaceholder;
+        new_word_kind_text = wordInstruction + nextPlaceholder.toLowerCase();
         wordKind.setText(new_word_kind_text);
 
         // save word from inputtext to string (en naar list voor einde activity)
         user_input = (EditText) findViewById(R.id.user_input_word);
-        user_input_string = user_input.toString();
+        user_input_string = user_input.getText().toString();
 
         filled_in_list.add(user_input_string);
 
