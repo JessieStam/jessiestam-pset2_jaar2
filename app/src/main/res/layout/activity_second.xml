@@ -50,7 +50,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/editText"
+                    android:id="@+id/user_input_word"
                     android:paddingLeft="30dp"
                     android:layout_weight="0.75" />
 

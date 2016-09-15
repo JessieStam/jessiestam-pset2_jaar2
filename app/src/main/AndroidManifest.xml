@@ -19,6 +19,11 @@
             android:label="Get Words"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".ThirdActivity"
+            android:label="Get Words"
+            android:theme="@style/AppTheme">
+        </activity>
+
     </application>
 
 </manifest>

@@ -3,7 +3,10 @@
     <string name="main_instructions">Welcome to MadLibs! When asked, fill in the words to complete the story. And all that without seeing the story before you\'re done! Ready? Click the button below to get started!</string>
     <string name="start_button">GET STARTED</string>
     <string name="second_instructions">Fill in the words to complete the story!</string>
-    <string name="words_left">word(s) left</string>
+    <string name="words_left"></string>
     <string name="add_word">Add</string>
-    <string name="word_to_enter">Please enter a/an</string>
+    <string name="word_to_enter"></string>
+    <string name="final_story_title">Your Mad Lib Story</string>
+    <string name="final_story">This is where the story should be printed.</string>
+    <string name="new_story_button">MAKE ANOTHER STORY</string>
 </resources>
