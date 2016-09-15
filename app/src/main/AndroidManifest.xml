@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".SecondActivity"
             android:label="Get Words"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".ThirdActivity"
             android:label="Get Words"
