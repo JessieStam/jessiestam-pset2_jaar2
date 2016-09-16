@@ -6,6 +6,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class SecondActivity extends MainActivity {
     String new_word_kind_text;
     Integer totalPlaceholdersLeft;
     String nextPlaceholder;
+    String toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class SecondActivity extends MainActivity {
         // REMEMBER storyNum zodat je niet meteen hetzelfde verhaaltje krijgt
 
         // get total amount of placeholders and print to screen with instructions
-        totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
+        totalPlaceholdersLeft = story.getPlaceholderCount();
         wordsLeft = (TextView) findViewById(R.id.amount_left);
         words_left = totalPlaceholdersLeft.toString();
         wordsLeftInstruction = " word(s) left";
@@ -92,7 +94,7 @@ public class SecondActivity extends MainActivity {
         wordKind.append(wordInstruction + nextPlaceholder.toLowerCase());
 
         user_input = (EditText) findViewById(R.id.user_input_word);
-        user_input.setHint(nextPlaceholder);
+        user_input.setHint(nextPlaceholder.toLowerCase());
 
         // create list to remember words for when activity is killed
         filled_in_list = new ArrayList<>();
@@ -100,6 +102,31 @@ public class SecondActivity extends MainActivity {
     }
 
     public void addWord(View addWordView) {
+
+        // misschien kun je hier beter een lijst van maken en misschien kan dat bij de eerste random int ook
+        Random randomNum = new Random();
+        int num = randomNum.nextInt(5);
+
+        // define toast at random using random integer
+        switch(num) {
+            case (0):
+                toast = "Added!";
+                break;
+            case (1):
+                toast = "Thanks!";
+                break;
+            case (2):
+                toast = "Nice one";
+                break;
+            case (3):
+                toast = "Saved!";
+                break;
+            case (4):
+                toast = "Thank you";
+                break;
+        }
+
+        Toast.makeText(SecondActivity.this, toast, Toast.LENGTH_SHORT).show();
 
         // get total amount of placeholders and print to screen with instructions
         Integer totalPlaceholdersLeft = story.getPlaceholderRemainingCount() - 1;
@@ -117,7 +144,7 @@ public class SecondActivity extends MainActivity {
         user_input_string = user_input.getText().toString();
 
         // set EditText hint to placeholder
-        user_input.setHint(nextPlaceholder);
+        user_input.setHint(nextPlaceholder.toLowerCase());
 
         // save word to list for when activity is killed
         filled_in_list.add(user_input_string);
@@ -143,6 +170,7 @@ public class SecondActivity extends MainActivity {
             startActivity(printStory);
 
             // finish current activity
+            finish();
         }
     }
     // onsavedinstacesate

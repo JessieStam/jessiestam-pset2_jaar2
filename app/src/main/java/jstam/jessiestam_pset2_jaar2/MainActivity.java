@@ -21,6 +21,5 @@ public class MainActivity extends AppCompatActivity {
         Intent startApp = new Intent(this, SecondActivity.class);
         startActivity(startApp);
 
-        finish();
     }
 }
