@@ -22,8 +22,8 @@
             android:weightSum="1">
 
             <ImageView
-                android:layout_width="282dp"
-                android:layout_height="308dp"
+                android:layout_width="267.9dp"
+                android:layout_height="292.6dp"
                 android:id="@+id/imageView"
                 android:layout_gravity="center_horizontal"
                 android:background="@mipmap/madlibs" />
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/start_button"
                     android:id="@+id/start_button"
-                    android:layout_gravity="right|bottom"
+                    android:layout_gravity="right"
                     android:padding="10dp"
                     android:textSize="30sp"
                     android:onClick="getStarted"/>
