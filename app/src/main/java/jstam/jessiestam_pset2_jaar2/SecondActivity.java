@@ -12,8 +12,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static jstam.jessiestam_pset2_jaar2.Story.*;
-
 /**
  * Second Activity
  *
@@ -61,47 +59,33 @@ public class SecondActivity extends MainActivity {
         setContentView(R.layout.activity_second);
 
         user_input = new EditText(this);
+        filled_in_list = new ArrayList<>();
+        wordsLeft = (TextView) findViewById(R.id.amount_left);
+        wordKind = (TextView) findViewById(R.id.word_kind);
+        user_input = (EditText) findViewById(R.id.user_input_word);
+        wordsLeftInstruction = " word(s) left";
+        wordInstruction = "Please enter a/an ";
 
         // if savedInstanceState is empty, create new ArrayList for IDs of checked CheckBoxes
         if (savedInstanceState == null) {
 
-            filled_in_list = new ArrayList<>();
-            wordsLeft = (TextView) findViewById(R.id.amount_left);
-            wordKind = (TextView) findViewById(R.id.word_kind);
-
+            // pick a story at random
             getRandomStory();
 
-            story = new Story(story_object);
-            story.read(story_object);
-
-            user_input = (EditText) findViewById(R.id.user_input_word);
-
-            wordsLeftInstruction = " word(s) left";
-            wordInstruction = "Please enter a/an ";
-
+            // update amount of words and kind of word to fill in
             updateWordCountAndWordKind();
 
         }
         // if savedInstanceState is full, load list of checked CheckBox IDs
         else {
             filled_in_list = savedInstanceState.getStringArrayList("savedList");
+            story = (Story) savedInstanceState.getSerializable("story");
 
             // for (list.length) fillinplaceholder + getnextplaceholder + getremainingwordcount (dit denk ik in oncreate)
             if (filled_in_list != null) {
-                for (String list_item : filled_in_list) {
-                    story.fillInPlaceholder(list_item);
 
-                    // get total amount of placeholders and print to screen with instructions
-                    Integer totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
-                    words_left = totalPlaceholdersLeft.toString();
-                    new_words_left_text = words_left + wordsLeftInstruction;
-                    wordsLeft.setText(new_words_left_text);
+                updateWordCountAndWordKind();
 
-                    // get placeholder and print to screen with instructions
-                    String nextPlaceholder = story.getNextPlaceholder();
-                    new_word_kind_text = wordInstruction + nextPlaceholder.toLowerCase();
-                    wordKind.setText(new_word_kind_text);
-                }
             }
 
         }
@@ -113,11 +97,7 @@ public class SecondActivity extends MainActivity {
         Toast.makeText(SecondActivity.this, getRandomToast(), Toast.LENGTH_SHORT).show();
 
         // save word from EditText to string
-//        user_input = (EditText) findViewById(R.id.user_input_word);
         user_input_string = user_input.getText().toString();
-
-        //clear EditText
-        user_input.getText().clear();
 
         // input word in story
         story.fillInPlaceholder(user_input_string);
@@ -125,23 +105,13 @@ public class SecondActivity extends MainActivity {
         // save word to list for when activity is killed
         filled_in_list.add(user_input_string);
 
+        //clear EditText
+        user_input.getText().clear();
+
+        // change amount of words left and the kind of word to fill in
         updateWordCountAndWordKind();
 
-//        // get total amount of placeholders and print to screen with instructions
-//        totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
-//        words_left = totalPlaceholdersLeft.toString();
-//        new_words_left_text = words_left + wordsLeftInstruction;
-//        wordsLeft.setText(new_words_left_text);
-//
-//        // get placeholder and print to screen with instructions
-//        nextPlaceholder = story.getNextPlaceholder();
-//        new_word_kind_text = wordInstruction + nextPlaceholder.toLowerCase();
-//        wordKind.setText(new_word_kind_text);
-//
-//        // set EditText hint to placeholder
-//        user_input.setHint(nextPlaceholder.toLowerCase());
-
-        // create boolean to check if isFilledIn returns true
+        // create boolean to check if isFilledIn function returns true
         boolean filledIn = story.isFilledIn();
 
         // when everything is filled in, move on to third activity to print story
@@ -162,7 +132,7 @@ public class SecondActivity extends MainActivity {
 
     public void getRandomStory() {
 
-        // define textfiles InputStreams
+        // define InputStreams
         madlib0 = getResources().openRawResource(R.raw.madlib0_simple);
         madlib1 = getResources().openRawResource(R.raw.madlib1_tarzan);
         madlib2 = getResources().openRawResource(R.raw.madlib2_university);
@@ -191,6 +161,10 @@ public class SecondActivity extends MainActivity {
                 story_object = madlib4;
                 break;
         }
+
+        // create story object with correct InputStream
+        story = new Story(story_object);
+        story.read(story_object);
     }
 
     public void updateWordCountAndWordKind() {
@@ -245,9 +219,8 @@ public class SecondActivity extends MainActivity {
 
         // save ArrayList of filled in words
         outState.putStringArrayList("savedList", filled_in_list);
-
-
-
+        // save story object
+        outState.putSerializable("story", story);
     }
 
     @Override
@@ -256,6 +229,7 @@ public class SecondActivity extends MainActivity {
 
         // restore ArrayList of filled in words
         filled_in_list = savedInstanceState.getStringArrayList("savedList");
-
+        // restore story object
+        story = (Story) savedInstanceState.getSerializable("story");
     }
 }
