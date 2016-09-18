@@ -21,39 +21,44 @@ import static jstam.jessiestam_pset2_jaar2.Story.*;
  */
 public class SecondActivity extends MainActivity {
 
+    // Define InputStreams
     InputStream madlib0;
     InputStream madlib1;
     InputStream madlib2;
     InputStream madlib3;
     InputStream madlib4;
+    InputStream story_object;
 
+    // Define Story object
     Story story;
+
+    // Define TextViews
     TextView wordsLeft;
-    String words_left;
     TextView wordKind;
-    EditText user_input;
+
+    // Define Strings
+    String words_left;
     String user_input_string;
-    ArrayList<String> filled_in_list;
     String wordsLeftInstruction;
     String wordInstruction;
     String new_words_left_text;
     String new_word_kind_text;
-    Integer totalPlaceholdersLeft;
     String nextPlaceholder;
     String toast;
-    InputStream story_object;
+
+    // Define EditText
+    EditText user_input;
+
+    // Define List
+    ArrayList<String> filled_in_list;
+
+    // Define Integer
+    Integer totalPlaceholdersLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-
-        // define textfiles InputStreams
-        madlib0 = getResources().openRawResource(R.raw.madlib0_simple);
-        madlib1 = getResources().openRawResource(R.raw.madlib1_tarzan);
-        madlib2 = getResources().openRawResource(R.raw.madlib2_university);
-        madlib3 = getResources().openRawResource(R.raw.madlib3_clothes);
-        madlib4 = getResources().openRawResource(R.raw.madlib4_dance);
 
         user_input = new EditText(this);
 
@@ -64,9 +69,15 @@ public class SecondActivity extends MainActivity {
             wordsLeft = (TextView) findViewById(R.id.amount_left);
             wordKind = (TextView) findViewById(R.id.word_kind);
 
-            story = new Story(getRandomStory());
+            getRandomStory();
+
+            story = new Story(story_object);
+            story.read(story_object);
 
             user_input = (EditText) findViewById(R.id.user_input_word);
+
+            wordsLeftInstruction = " word(s) left";
+            wordInstruction = "Please enter a/an ";
 
             updateWordCountAndWordKind();
 
@@ -117,13 +128,13 @@ public class SecondActivity extends MainActivity {
         updateWordCountAndWordKind();
 
 //        // get total amount of placeholders and print to screen with instructions
-//        Integer totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
+//        totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
 //        words_left = totalPlaceholdersLeft.toString();
 //        new_words_left_text = words_left + wordsLeftInstruction;
 //        wordsLeft.setText(new_words_left_text);
 //
 //        // get placeholder and print to screen with instructions
-//        String nextPlaceholder = story.getNextPlaceholder();
+//        nextPlaceholder = story.getNextPlaceholder();
 //        new_word_kind_text = wordInstruction + nextPlaceholder.toLowerCase();
 //        wordKind.setText(new_word_kind_text);
 //
@@ -149,7 +160,14 @@ public class SecondActivity extends MainActivity {
         }
     }
 
-    public InputStream getRandomStory() {
+    public void getRandomStory() {
+
+        // define textfiles InputStreams
+        madlib0 = getResources().openRawResource(R.raw.madlib0_simple);
+        madlib1 = getResources().openRawResource(R.raw.madlib1_tarzan);
+        madlib2 = getResources().openRawResource(R.raw.madlib2_university);
+        madlib3 = getResources().openRawResource(R.raw.madlib3_clothes);
+        madlib4 = getResources().openRawResource(R.raw.madlib4_dance);
 
         // get a random integer between 0 and 4
         Random randomStoryNum = new Random();
@@ -158,41 +176,35 @@ public class SecondActivity extends MainActivity {
         // define story at random using random integer
         switch(storyNum) {
             case (0):
-                story.read(madlib0);
                 story_object = madlib0;
                 break;
             case (1):
-                story.read(madlib1);
                 story_object = madlib1;
                 break;
             case (2):
-                story.read(madlib2);
                 story_object = madlib2;
                 break;
             case (3):
-                story.read(madlib3);
                 story_object = madlib3;
                 break;
             case (4):
-                story.read(madlib4);
                 story_object = madlib4;
                 break;
         }
-
-        return story_object;
     }
 
     public void updateWordCountAndWordKind() {
 
-        // get total amount of placeholders left and print to screen with instructions
+        wordsLeft.setText("");
+
+        // get (total amount of) placeholders left and print to screen with instructions
         totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
         words_left = totalPlaceholdersLeft.toString();
-        wordsLeftInstruction = " word(s) left";
         wordsLeft.append(words_left + wordsLeftInstruction);
 
-        // get placeholder and print to screen with instructions (deze gaat nog niet goed, print eentje dubbel VRAAG)
+        wordKind.setText("");
+
         nextPlaceholder = story.getNextPlaceholder();
-        wordInstruction = "Please enter a/an ";
         wordKind.append(wordInstruction + nextPlaceholder.toLowerCase());
 
         user_input.setHint(nextPlaceholder.toLowerCase());
