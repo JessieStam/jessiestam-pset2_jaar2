@@ -8,7 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Random;
 
 /*
@@ -22,7 +21,7 @@ import java.util.Random;
  */
 public class SecondActivity extends MainActivity {
 
-    // Define InputStreams
+    // define InputStreams
     InputStream madlib0;
     InputStream madlib1;
     InputStream madlib2;
@@ -30,14 +29,14 @@ public class SecondActivity extends MainActivity {
     InputStream madlib4;
     InputStream story_object;
 
-    // Define Story object
+    // define Story object
     Story story;
 
-    // Define TextViews
+    // define TextViews
     TextView wordsLeft;
     TextView wordKind;
 
-    // Define Strings
+    // define Strings
     String words_left;
     String user_input_string;
     String wordsLeftInstruction;
@@ -45,7 +44,7 @@ public class SecondActivity extends MainActivity {
     String nextPlaceholder;
     String toast;
 
-    // Define EditText
+    // define EditText
     EditText user_input;
 
     // Define Integer
@@ -87,11 +86,9 @@ public class SecondActivity extends MainActivity {
         // let user know word is saved by random toast
         Toast.makeText(SecondActivity.this, getRandomToast(), Toast.LENGTH_SHORT).show();
 
-        // input word in story and add as string to list for when activity is killed
+        // input bold word in story and clear EditText for next word
         user_input_string = user_input.getText().toString();
-        story.fillInPlaceholder(user_input_string);
-
-        //clear EditText
+        story.fillInPlaceholder("<b>" + user_input_string + "</b> ");
         user_input.getText().clear();
 
         // change amount of words left and the kind of word to fill in
@@ -100,22 +97,24 @@ public class SecondActivity extends MainActivity {
         // create boolean to check if isFilledIn function returns true
         boolean filledIn = story.isFilledIn();
 
-        // when everything is filled in, move on to third activity to print story
+        // when everything is filled in, move on to Third Activity to print story
         if (filledIn) {
             // create final story String
             String finalStory = story.toString();
 
-            // open third activity to display story
+            // open Third Activity to display story
             Intent printStory = new Intent(this, ThirdActivity.class);
             printStory.putExtra("finalStory", finalStory);
-
             startActivity(printStory);
 
-            // finish current activity
+            // finish current Activity
             finish();
         }
     }
 
+    /*
+     * Picks a story at random and creates the Story object
+     */
     public void getRandomStory() {
 
         // define InputStreams
@@ -129,7 +128,7 @@ public class SecondActivity extends MainActivity {
         Random randomStoryNum = new Random();
         int storyNum = randomStoryNum.nextInt(5);
 
-        // define story at random using random integer
+        // define story at random using random Integer
         switch(storyNum) {
             case (0):
                 story_object = madlib0;
@@ -153,31 +152,38 @@ public class SecondActivity extends MainActivity {
         story.read(story_object);
     }
 
+    /*
+     * Updates the total amount of words left and the kind of word to input and prints them to the
+     * screen.
+     */
     public void updateWordCountAndWordKind() {
 
+        // clear TextViews to fill them again
         wordsLeft.setText("");
+        wordKind.setText("");
 
         // get (total amount of) placeholders left and print to screen with instructions
         totalPlaceholdersLeft = story.getPlaceholderRemainingCount();
         words_left = totalPlaceholdersLeft.toString();
         wordsLeft.append(words_left + wordsLeftInstruction);
 
-        wordKind.setText("");
-
         nextPlaceholder = story.getNextPlaceholder();
         wordKind.append(wordInstruction + nextPlaceholder.toLowerCase());
 
+        // give instructions for the kind of word to input as hint
         user_input.setHint(nextPlaceholder.toLowerCase());
-
     }
 
+    /*
+     * Takes a random Integer and picks a random Toast accordingly.
+     */
     public String getRandomToast() {
 
-        // misschien kun je hier beter een lijst van maken en misschien kan dat bij de eerste random int ook
+        // get random int between 0 and 4
         Random randomNum = new Random();
         int num = randomNum.nextInt(5);
 
-        // define toast at random using random integer
+        // define toast at random using random Integer
         switch(num) {
             case (0):
                 toast = "Added!";
@@ -195,7 +201,6 @@ public class SecondActivity extends MainActivity {
                 toast = "Thank you";
                 break;
         }
-
         return toast;
     }
 
