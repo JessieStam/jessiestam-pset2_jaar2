@@ -2,7 +2,6 @@ package jstam.jessiestam_pset2_jaar2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,10 +11,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Second Activity
+/*
+ * Mad Libs - Second Activity
  *
- * Prompts the user for words.
+ * Jessie Stam
+ *
+ * Prompts the user for words, then fills them in and informs the user about what kind of word to
+ * fill in next and how many words are yet to be filled in. Creates a Story string when all words
+ * are filled in before continuing to Third Activity.
  */
 public class SecondActivity extends MainActivity {
 
@@ -39,16 +42,11 @@ public class SecondActivity extends MainActivity {
     String user_input_string;
     String wordsLeftInstruction;
     String wordInstruction;
-    String new_words_left_text;
-    String new_word_kind_text;
     String nextPlaceholder;
     String toast;
 
     // Define EditText
     EditText user_input;
-
-    // Define List
-    ArrayList<String> filled_in_list;
 
     // Define Integer
     Integer totalPlaceholdersLeft;
@@ -59,51 +57,39 @@ public class SecondActivity extends MainActivity {
         setContentView(R.layout.activity_second);
 
         user_input = new EditText(this);
-        filled_in_list = new ArrayList<>();
         wordsLeft = (TextView) findViewById(R.id.amount_left);
         wordKind = (TextView) findViewById(R.id.word_kind);
         user_input = (EditText) findViewById(R.id.user_input_word);
         wordsLeftInstruction = " word(s) left";
         wordInstruction = "Please enter a/an ";
 
-        // if savedInstanceState is empty, create new ArrayList for IDs of checked CheckBoxes
+        // if savedInstanceState is empty, create new Story object
         if (savedInstanceState == null) {
-
-            // pick a story at random
+            // pick random story and update amount of words and kind of word to fill in
             getRandomStory();
+            updateWordCountAndWordKind();
+        }
+        // if savedInstanceState is full, load Story object
+        else {
+            story = (Story) savedInstanceState.getSerializable("story");
 
             // update amount of words and kind of word to fill in
             updateWordCountAndWordKind();
-
-        }
-        // if savedInstanceState is full, load list of checked CheckBox IDs
-        else {
-            filled_in_list = savedInstanceState.getStringArrayList("savedList");
-            story = (Story) savedInstanceState.getSerializable("story");
-
-            // for (list.length) fillinplaceholder + getnextplaceholder + getremainingwordcount (dit denk ik in oncreate)
-            if (filled_in_list != null) {
-
-                updateWordCountAndWordKind();
-
-            }
-
         }
     }
 
+    /*
+     * Saves the word filled in by user to the Story object and updates amount of words left
+     * and kind of word to fill in next when button is clicked.
+     */
     public void addWord(View addWordView) {
 
         // let user know word is saved by random toast
         Toast.makeText(SecondActivity.this, getRandomToast(), Toast.LENGTH_SHORT).show();
 
-        // save word from EditText to string
+        // input word in story and add as string to list for when activity is killed
         user_input_string = user_input.getText().toString();
-
-        // input word in story
         story.fillInPlaceholder(user_input_string);
-
-        // save word to list for when activity is killed
-        filled_in_list.add(user_input_string);
 
         //clear EditText
         user_input.getText().clear();
@@ -217,8 +203,6 @@ public class SecondActivity extends MainActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        // save ArrayList of filled in words
-        outState.putStringArrayList("savedList", filled_in_list);
         // save story object
         outState.putSerializable("story", story);
     }
@@ -227,8 +211,6 @@ public class SecondActivity extends MainActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        // restore ArrayList of filled in words
-        filled_in_list = savedInstanceState.getStringArrayList("savedList");
         // restore story object
         story = (Story) savedInstanceState.getSerializable("story");
     }

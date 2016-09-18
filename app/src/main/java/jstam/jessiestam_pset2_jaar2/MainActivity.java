@@ -5,6 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * Mad Libs - Main Activity
+ *
+ * Jessie Stam
+ *
+ * Shows the user instructions on how to use this application, moves to Second Activity when start
+ * button is clicked.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,12 +22,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * when start button is clicked, open Second Activity
+     * Opens Second Activity when start button is clicked.
      */
-    public void getStarted(View view) {
+    public void getStarted(View instructionsView) {
 
         Intent startApp = new Intent(this, SecondActivity.class);
         startActivity(startApp);
-
     }
 }
