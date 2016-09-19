@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:orientation="vertical"
@@ -50,7 +51,8 @@
                     android:layout_gravity="right"
                     android:padding="10dp"
                     android:textSize="30sp"
-                    android:onClick="getStarted"/>
+                    android:onClick="getStarted"
+                    android:background="#9CFCB2"/>
             </FrameLayout>
 
         </LinearLayout>

@@ -31,7 +31,7 @@ public class ThirdActivity extends SecondActivity {
 
         final_story = (TextView) findViewById(R.id.final_story);
 
-        // check if API 24 or API 23 is used, set Html accordingly to print words from user bold
+        // check if API 24 or API 23 is used, set Html accordingly to print words from user in bold
         if (Build.VERSION.SDK_INT >= 24) {
             final_story.setText(Html.fromHtml(finalStory, Html.FROM_HTML_MODE_LEGACY));
         } else {
